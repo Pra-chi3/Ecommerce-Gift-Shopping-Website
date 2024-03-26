@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-color: #8C4646;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 150px;
+        }
+
+        .card {
+            background-color: antiquewhite;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        #save_btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #save_btn:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="button"] {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        button[type="button"]:hover {
+            color: #0056b3;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Log in page</h2>
+            <form action="#">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control"name="email" id="email" placeholder="Enter Email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control"name="password" id="password" placeholder="Enter Password">
+                </div>
+                <div class="text-center">
+                    <button type="button" onclick="saveData()" id="save_btn">Submit</button>
+                    <button type="button" onclick="redirectToPage()">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function redirectToPage() {
+            window.location.href = "sign-up.html";
+        }
+        function saveData(){
+            let email,password;
+            email=document.getElementById("email").value;
+            password=document.getElementById("password").value;
+
+            let user_record=new Array(); 
+            user_record=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+            if(user_record.some((val)=>{ 
+                return val.email==email && val.password==password ;
+            })){
+                let current_user=user_record.filter((val)=>{//if email && password match with previously stored data
+                    return val.email==email && val.password==password
+                })[0];
+                localStorage.setItem("name",current_user.name);
+                localStorage.setItem("email",current_user.email);
+                window.location.href="website.html";
+            
+                alert("Login Successfully");
+            }
+            else{
+                alert("Login Fail");
+            }
+        }
+    </script>
+</body>
+</html>

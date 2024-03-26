@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 15%;
+            margin-left: 30%;
+            margin-right:30%;
+            border-radius: 0.cm;
+            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid;
+        }
+        span{
+            color: red;
+        }
+        button:hover {
+             height: 40px;
+            width: 140px;
+            background-color: black;
+            color: white;
+        }
+        #grad {
+  background-image: linear-gradient(to bottom right, #112D60, #b6c0c5);
+}
+
+        input
+        {
+            height: 40px;
+        width: 200px;
+/* padding: 20px; */
+        }
+
+       
+
+
+      
+        
+    </style>
+    <script>
+        function validation() {
+            var x = document.apple.username.value;
+            var y = document.apple.password.value;
+            var emailvalid = document.myform.email.value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (x == null || x == "") {
+                document.getElementById("owl").innerHTML = "* Username cannot be left empty";
+                return false;
+            } else if(!emailRegex.test(emailvalid)){
+    document.getElementById("email_error").innerHTML="* Please enter a valid email address";
+    return false;
+  }
+  else{
+    return true;
+  }
+
+        } 
+    </script>
+</head>
+<body id="grad">
+    <!-- <form name="apple" align="center" onsubmit="return validation()" method="post" action="/Login page.html"> -->
+   
+        <form action="/conta_page.html" method="post" id="myForm" name="apple">
+        <div align="center" >
+            <P>
+            <br><br>
+            <h1>Contact</h1>
+            <br><br>
+            Name: <input type="text" name="name" placeholder="Enter your name"><br><span id="name_error"></span> <br>
+            Email : <input type="email" name="email" placeholder="Enter your email"><br><span id="email_error"></span><br><br>
+        <button value="submit" onclick=" return validation()">Submit</button><br><br><br>
+    </P>
+    </div>
+    </form>
+    
+    
+</body>
+</html>

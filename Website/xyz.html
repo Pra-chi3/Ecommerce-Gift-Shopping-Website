@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="xyz.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    var app = angular.module("myApp", []);
+    app.controller("cartCtrl", function($scope,$window) {
+        $scope.products = [{
+          name: "Cologne",
+          price: 500,
+          limit:5
+        },
+        {
+          name: "Jewellery",
+          price: 400,
+          limit:6
+        },
+        {
+          name: "Soft Toy",
+          price: 300,
+          limit :7
+        }
+      ];
+      $scope.cart = [];
+
+      $scope.addToCart = function(product) {
+        var item = $scope.cart.find(function(item) {
+          return item.product === product;
+        });
+
+        if (item) {
+          if (item.quantity < product.limit) {
+            item.quantity++;
+          } else {
+            alert("You can't add more than " + product.limit + " " + product.name + " to the cart.");
+          }
+        } else {
+          $scope.cart.push({
+            product: product,
+            quantity: 1
+          });
+        }
+      };
+
+      $scope.getTotal = function() {
+        var total = 0;
+        $scope.cart.forEach(function(item) {
+          total += item.product.price * item.quantity;
+        });
+        return total;
+      };
+
+      $scope.checkout = function() {
+      
+        alert("Checkout completed!");
+        $scope.orderHistory.push({
+          date: new Date(),
+          items: $scope.cart,
+          total: $scope.getTotal()
+        });
+        $scope.cart = [];
+      };
+
+      $scope.orderHistory = [];
+
+
+$scope.checkout = function() {
+    alert("Checkout completed!");
+    $scope.orderHistory.push({
+        date: new Date(),
+        items: $scope.cart,
+        total: $scope.getTotal()
+    });
+    $scope.cart = [];
+
+
+
+    // Convert order history data to JSON string and encode it
+    var orderHistoryJson = encodeURIComponent(JSON.stringify($scope.orderHistory));
+
+    // Construct the URL with the order history data as a query parameter
+    var orderHistoryUrl = 'order_history.html?data=' + orderHistoryJson;
+
+    // Redirect to the order history page with the order history data
+    $window.open(orderHistoryUrl, '_blank');
+};
+
+
+    });
+  </script>
+</head>
+
+<body ng-controller="cartCtrl">
+  <div  class="nav-container " style="padding:0px;margin:0px; background-color:none;">
+    <nav>
+        <a href="website.html">Home</a>
+         <a href="website.html#categories">Catagories</a>
+          <a href="website.html#about">About </a>
+           <a href="conta_page.html">Contact </a>
+    </nav></div>
+ <header > Our products</header>
+ <br><br>
+ <center>
+ <table style="margin-left: 9%;">
+
+ <tr>
+  <td align="center">
+  <div ng-repeat="product in products" class="box">
+    <h2 id="{{ product.name === 'Cologne' ? 'male' : (product.name === 'Jewellery' ? 'female' : (product.name === 'Soft Toy' ? 'kids' : '')) }}">
+      {{ product.name === 'Cologne' ? 'Male' : (product.name === 'Jewellery' ? 'Female' : (product.name === 'Soft Toy' ? 'Kids' : '')) }}
+    </h2>
+    <img ng-src="{{ product.name === 'Cologne' ? 'cologne2.jpg' : (product.name === 'Jewellery' ? 'necklaces2.jpg' : (product.name === 'Soft Toy' ? 'toys.jpg' : 'default-image.jpg')) }}" />
+    <h3>{{ product.name }}</h3>
+    <p>Price: Rs {{ product.price }}</p>
+    <button ng-click="addToCart(product)">Add to Cart</button>
+  </div>
+</td> 
+<td align="center"> <div ng-repeat="product in products" class="box">
+  <h2 id="{{ product.name === 'Cologne' ? 'male' : (product.name === 'Jewellery' ? 'female' : (product.name === 'Soft Toy' ? 'kids' : '')) }}">
+    {{ product.name === 'Cologne' ? 'Male' : (product.name === 'Jewellery' ? 'Female' : (product.name === 'Soft Toy' ? 'Kids' : '')) }}
+  </h2>
+  <img ng-src="{{ product.name === 'Cologne' ? 'c2.jpg' : (product.name === 'Jewellery' ? 'j2.jpg' : (product.name === 'Soft Toy' ? 'images.jpg' : 'images.jpg')) }}" />
+  <h3>{{ product.name }}</h3>
+  <p>Price: Rs {{ product.price }}</p>
+  <button ng-click="addToCart(product)">Add to Cart</button>
+</div></td>
+<td align="center"> <div ng-repeat="product in products" class="box">
+  <h2 id="{{ product.name === 'Cologne' ? 'male' : (product.name === 'Jewellery' ? 'female' : (product.name === 'Soft Toy' ? 'kids' : '')) }}">
+    {{ product.name === 'Cologne' ? 'Male' : (product.name === 'Jewellery' ? 'Female' : (product.name === 'Soft Toy' ? 'Kids' : '')) }}
+  </h2>
+  <img ng-src="{{ product.name === 'Cologne' ? 'c3.jpg' : (product.name === 'Jewellery' ? 'j3.jpg' : (product.name === 'Soft Toy' ? 't3.jpg' : 'default-image.jpg')) }}" />
+  <h3>{{ product.name }}</h3>
+  <p>Price: Rs {{ product.price }}</p>
+  <button ng-click="addToCart(product)">Add to Cart</button>
+</div></td>
+</tr>
+
+</table>
+</center>
+  <header style="margin-top:1%;">Order Cart</header>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in cart">
+        <td>{{ item.product.name }}</td>
+        <td>Rs{{ item.product.price }}</td>
+        <td>
+          <input type="number" ng-model="item.quantity">
+        </td>
+        <td>Rs {{ item.product.price * item.quantity }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align:right;">Total:</td>
+        <td>Rs {{ getTotal() }}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button ng-click="checkout()">Checkout</button>
+
+</body>
+</html>

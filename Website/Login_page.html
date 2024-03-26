@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 15%;
+            margin-left: 30%;
+            margin-right:30%;
+            border-radius: 0.cm;
+            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid;
+        }
+        span{
+            color: red;
+        }
+        button:hover {
+            height: 40px;
+            width: 140px;
+            background-color: black;
+            color: white;
+        }
+        #grad {
+  background-image: linear-gradient(to bottom right, #112D60, #b6c0c5);
+}
+#grad1 {
+  background-image: linear-gradient(to bottom right, #38a2d7, #561139);
+}
+    </style>
+    <script>
+        function validation() {
+            var x = document.apple.username.value;
+         
+
+            if (x == null || x == "") {
+                document.getElementById("owl").innerHTML = "* Username cannot be left empty";
+                return false;
+            } else if (y == null || y == "" || y.length < 6) {
+                document.getElementById("shoe").innerHTML = "* Please enter a valid password";
+                return false;
+            }
+
+        } 
+    </script>
+</head>
+<body id="grad1">
+    <!-- <form name="apple" align="center" onsubmit="return validation()" method="post" action="/Login page.html"> -->
+   
+        <form action="/Login_page.html" method="post" id="myForm" name="apple">
+        <div align="center" >
+            <P>
+            <br><br>
+            <h1>Login</h1>
+            <br><br>
+            Username: <input type="text" name="username"><br><span id="owl"></span> <br>
+        Password : <input type="password" name="password"><br><span id="shoe"></span><br><br>
+       <button value="submit" onclick=" return validation()">Submit</button><br><br><br>
+    </P>
+    </div>
+    </form>
+    
+    
+</body>
+</html>
